@@ -53,10 +53,38 @@ def _get_connection():
 # Инициализация
 # ---------------------------------------------------------------------------
 
+def _ensure_database_exists() -> None:
+    """
+    Подключается к служебной БД 'postgres' и создаёт todo_bot, если её нет.
+    Используется автоматически при старте.
+    """
+    db_name = os.getenv("DB_NAME", "todo_bot")
+    conn = psycopg2.connect(
+        host=os.getenv("DB_HOST", "localhost"),
+        port=int(os.getenv("DB_PORT", 5432)),
+        database="postgres",                   # служебная БД, всегда существует
+        user=os.getenv("DB_USER", "postgres"),
+        password=os.getenv("DB_PASSWORD", ""),
+    )
+    # autocommit нужен для CREATE DATABASE (нельзя внутри транзакции)
+    conn.autocommit = True
+    cur = conn.cursor()
+    cur.execute("SELECT 1 FROM pg_database WHERE datname = %s", (db_name,))
+    if cur.fetchone() is None:
+        cur.execute(f'CREATE DATABASE "{db_name}"')
+        print(f"[DB] База данных '{db_name}' создана")
+    else:
+        print(f"[DB] База данных '{db_name}' уже существует")
+    cur.close()
+    conn.close()
+
+
 def create_table() -> None:
     """
-    Пробует подключиться к PostgreSQL и создать таблицу tasks.
-    Если не удаётся — переключается на in-memory режим.
+    При запуске:
+      1. Создаёт базу данных todo_bot если её нет.
+      2. Создаёт таблицу tasks если её нет.
+    Если PostgreSQL недоступен — переключается на in-memory режим.
     """
     global USE_DB
 
@@ -66,6 +94,10 @@ def create_table() -> None:
         return
 
     try:
+        # Шаг 1: убедиться что база данных существует
+        _ensure_database_exists()
+
+        # Шаг 2: подключиться к нужной БД и создать таблицу
         conn = _get_connection()
         cur = conn.cursor()
         cur.execute("""
@@ -80,7 +112,7 @@ def create_table() -> None:
         cur.close()
         conn.close()
         USE_DB = True
-        print("[DB] Подключение к PostgreSQL успешно")
+        print("[DB] Подключение к PostgreSQL успешно, таблица tasks готова")
     except Exception as e:
         USE_DB = False
         print(f"[DB] PostgreSQL недоступен ({e})\n"
