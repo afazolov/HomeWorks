@@ -1,0 +1,20 @@
+{% comment %}
+Переиспользуемая карточка сотрудника (К10).
+Использование: {% include "partials/employee_card.html" with employee=emp %}
+{% endcomment %}
+<a href="{% url 'employees:detail' employee.pk %}" style="text-decoration:none;color:inherit;">
+  <div style="background:#fff;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,.1);padding:20px;transition:box-shadow .2s;">
+    <h3 style="margin-bottom:8px;">{{ employee }}</h3>
+    {% if employee.skills.all %}
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">
+        {% for es in employee.skills.all %}
+          <span style="background:#2c3e50;color:#fff;border-radius:4px;padding:3px 8px;font-size:0.8rem;">
+            {{ es.skill.name }} · {{ es.level }}/10
+          </span>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p style="color:#999;font-size:0.85rem;margin-top:8px;">Навыки не указаны</p>
+    {% endif %}
+  </div>
+</a>

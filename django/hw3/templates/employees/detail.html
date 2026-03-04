@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}{{ employee }} — Подробная карточка{% endblock %}
+
+{% block content %}
+  <a href="{% url 'employees:list' %}" style="color:#2c3e50;">&larr; Назад к списку</a>
+
+  <div style="background:#fff;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.1);padding:32px;margin-top:20px;">
+    <h1 style="margin-bottom:4px;">{{ employee }}</h1>
+
+    {% if employee.gender %}
+      <p style="color:#777;margin-bottom:16px;">{{ employee.get_gender_display }}</p>
+    {% endif %}
+
+    {% if employee.description %}
+      <p style="margin-bottom:24px;">{{ employee.description }}</p>
+    {% endif %}
+
+    {% if employee.skills.all %}
+      <h2 style="margin-bottom:12px;">Навыки</h2>
+      <ul style="list-style:none;display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px;">
+        {% for es in employee.skills.all %}
+          <li style="background:#2c3e50;color:#fff;border-radius:6px;padding:6px 14px;">
+            {{ es.skill.name }} &mdash; {{ es.level }}/10
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% if employee.photos.all %}
+      <h2 style="margin-bottom:12px;">Галерея</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;">
+        {% for photo in employee.photos.all %}
+          <img src="{{ photo.image.url }}" alt="Фото {{ photo.order }}"
+               style="width:160px;height:160px;object-fit:cover;border-radius:6px;" />
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
