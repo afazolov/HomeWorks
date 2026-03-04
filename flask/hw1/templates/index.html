@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flask App</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <img src="{{ url_for('static', filename='img/logo.png') }}"
+         alt="Логотип сайта"
+         onerror="this.style.display='none'" />
+    <h1>Добро пожаловать!</h1>
+    <p>
+      Это моё первое веб-приложение на Flask — лёгком и гибком
+      микрофреймворке для Python. Здесь вы можете познакомиться с основами
+      создания веб-сервисов.
+    </p>
+  </div>
+</body>
+</html>
