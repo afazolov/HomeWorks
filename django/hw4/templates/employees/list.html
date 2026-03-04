@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Список сотрудников{% endblock %}
+
+{% block content %}
+  <h1 style="margin-bottom:24px;">Сотрудники</h1>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;">
+    {% for employee in employees %}
+      {% include "partials/employee_card.html" with employee=employee %}
+    {% empty %}
+      <p>Нет сотрудников.</p>
+    {% endfor %}
+  </div>
+
+  {% if is_paginated %}
+    <div style="display:flex;justify-content:center;gap:8px;margin-top:32px;flex-wrap:wrap;">
+      {% if page_obj.has_previous %}
+        <a href="?page=1" style="padding:6px 12px;background:#2c3e50;color:#fff;border-radius:4px;text-decoration:none;">&laquo; Начало</a>
+        <a href="?page={{ page_obj.previous_page_number }}" style="padding:6px 12px;background:#2c3e50;color:#fff;border-radius:4px;text-decoration:none;">Назад</a>
+      {% endif %}
+      <span style="padding:6px 12px;background:#ecf0f1;border-radius:4px;">
+        Стр. {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+      </span>
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" style="padding:6px 12px;background:#2c3e50;color:#fff;border-radius:4px;text-decoration:none;">Вперёд</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}" style="padding:6px 12px;background:#2c3e50;color:#fff;border-radius:4px;text-decoration:none;">Конец &raquo;</a>
+      {% endif %}
+    </div>
+  {% endif %}
+{% endblock %}
