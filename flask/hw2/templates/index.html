@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Мой блог — Достижения и навыки</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Шапка с фото и приветствием -->
+    <header>
+      <img src="{{ url_for('static', filename='img/avatar.png') }}"
+           alt="Фото"
+           onerror="this.style.display='none'" />
+      <h1>Привет, я студент курса Flask!</h1>
+      <p>Добро пожаловать в мой личный блог-портфолио.</p>
+    </header>
+
+    <!-- О себе -->
+    <section>
+      <h2>Обо мне</h2>
+      <p>
+        Я изучаю веб-разработку на Python. Моя цель — создавать
+        удобные и красивые веб-приложения. Прохожу курс по Flask,
+        осваиваю HTML, CSS и работу с базами данных.
+      </p>
+      <blockquote>
+        «Лучший способ научиться программированию — это писать программы.»
+      </blockquote>
+    </section>
+
+    <!-- Навыки -->
+    <section>
+      <h2>Мои навыки</h2>
+      <h3>Технические навыки:</h3>
+      <ul>
+        <li>Python — основы, ООП, работа с файлами</li>
+        <li>Flask — маршруты, шаблоны Jinja2, Blueprint</li>
+        <li>HTML5 &amp; CSS3 — вёрстка, Flexbox, Grid</li>
+        <li>SQLAlchemy — ORM, модели, миграции</li>
+        <li>Git — контроль версий, GitHub</li>
+      </ul>
+      <h3>Soft-навыки:</h3>
+      <ol>
+        <li>Самостоятельное обучение</li>
+        <li>Решение задач</li>
+        <li>Работа в команде</li>
+      </ol>
+    </section>
+
+    <!-- Достижения -->
+    <section>
+      <h2>Достижения</h2>
+      <p>
+        За время обучения я выполнил несколько домашних заданий и
+        итоговых проектов. Вот основные из них:
+      </p>
+      <ul>
+        <li>Flask HW1 — базовое приложение с CSS-стилизацией</li>
+        <li>Flask HW2 — блог с таблицей прогресса</li>
+        <li>Flask Final — полноценный блог с аутентификацией и CRUD постов</li>
+        <li>Django HW1–HW4 — модели, ORM-запросы, CBV, пагинация</li>
+        <li>FastAPI Final — REST API для каталога товаров с PostgreSQL</li>
+      </ul>
+    </section>
+
+    <!-- Таблица прогресса по дисциплинам -->
+    <section>
+      <h2>Прогресс по дисциплинам</h2>
+      <p>Таблица отражает текущий прогресс по курсам программы.</p>
+
+      <table class="progress-table">
+        <thead>
+          <tr>
+            <th>Показатель</th>
+            <th>Python Основы</th>
+            <th>Фреймворк Flask</th>
+            <th>Фреймворк Django</th>
+            <th>FastAPI</th>
+            <th>Базы данных</th>
+            <th>Алгоритмы</th>
+            <th>Linux</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>% выполнения темы</td>
+            <td><span class="badge-done">100%</span></td>
+            <td><span class="badge-done">100%</span></td>
+            <td><span class="badge-done">100%</span></td>
+            <td><span class="badge-done">100%</span></td>
+            <td><span class="badge-progress">80%</span></td>
+            <td><span class="badge-done">100%</span></td>
+            <td><span class="badge-progress">70%</span></td>
+          </tr>
+          <tr>
+            <td>% выполнения ДЗ</td>
+            <td><span class="badge-done">100%</span></td>
+            <td><span class="badge-done">100%</span></td>
+            <td><span class="badge-done">100%</span></td>
+            <td><span class="badge-done">100%</span></td>
+            <td><span class="badge-progress">75%</span></td>
+            <td><span class="badge-done">100%</span></td>
+            <td><span class="badge-progress">60%</span></td>
+          </tr>
+          <tr>
+            <td>Комментарии</td>
+            <td>Изучены ООП, файлы, исключения</td>
+            <td>Маршруты, шаблоны, Blueprint, Auth</td>
+            <td>CBV, ORM, Admin, миграции</td>
+            <td>Async, Pydantic, PostgreSQL</td>
+            <td>В процессе</td>
+            <td>Сортировки, поиск</td>
+            <td>В процессе</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Контакты -->
+    <section>
+      <h2>Контакты</h2>
+      <p>Свяжитесь со мной:</p>
+      <ul>
+        <li>GitHub: <a href="https://github.com" target="_blank">github.com/username</a></li>
+        <li>Email: <a href="mailto:student@example.com">student@example.com</a></li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Мой блог на Flask. Все права защищены.</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
