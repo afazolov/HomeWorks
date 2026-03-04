@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-lg-8 mx-auto">
+    <a href="{{ url_for('posts.index') }}" class="text-muted small">&larr; К списку постов</a>
+
+    <div class="card shadow-sm mt-3">
+      <div class="card-body p-4">
+        <h1 class="h3 mb-1">{{ post.title }}</h1>
+        <p class="text-muted small mb-4">
+          Автор: <strong>{{ post.author.username }}</strong> &middot;
+          {{ post.created_at.strftime('%d.%m.%Y %H:%M') }}
+          {% if post.updated_at and post.updated_at != post.created_at %}
+            &middot; обновлён {{ post.updated_at.strftime('%d.%m.%Y %H:%M') }}
+          {% endif %}
+        </p>
+        <div style="white-space: pre-wrap; line-height: 1.7;">{{ post.body }}</div>
+      </div>
+    </div>
+
+    {% if current_user.is_authenticated and current_user.id == post.author_id %}
+      <div class="d-flex gap-2 mt-3">
+        <a href="{{ url_for('posts.edit', post_id=post.id) }}"
+           class="btn btn-outline-secondary btn-sm">Редактировать</a>
+        <form method="post" action="{{ url_for('posts.delete', post_id=post.id) }}"
+              onsubmit="return confirm('Удалить этот пост?')">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button type="submit" class="btn btn-outline-danger btn-sm">Удалить</button>
+        </form>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
